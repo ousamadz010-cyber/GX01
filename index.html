@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GX01 — Cinema</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(255,0,128,.20), transparent 25%),
+        radial-gradient(circle at 85% 15%, rgba(120,0,255,.22), transparent 28%),
+        radial-gradient(circle at 50% 90%, rgba(255,170,0,.12), transparent 30%),
+        #050507;
+
+    color: white;
+    font-family: Georgia, "Times New Roman", serif;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   DECORATIVE BACKGROUND
+========================= */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::before {
+    width: 700px;
+    height: 700px;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 50%;
+    top: -350px;
+    left: -250px;
+
+    box-shadow:
+        0 0 0 35px rgba(255,0,128,.025),
+        0 0 0 70px rgba(140,0,255,.02);
+}
+
+body::after {
+    width: 900px;
+    height: 900px;
+    border: 1px solid rgba(255,255,255,.05);
+    border-radius: 50%;
+    right: -500px;
+    top: 250px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    text-align: center;
+    padding: 55px 20px 30px;
+    position: relative;
+}
+
+.logo {
+    font-size: clamp(65px, 13vw, 145px);
+    font-weight: 900;
+    letter-spacing: -8px;
+    line-height: .85;
+
+    background:
+        linear-gradient(
+            120deg,
+            #ff004f,
+            #ff0080,
+            #a000ff,
+            #7b2cff,
+            #ff0080,
+            #ffb000
+        );
+
+    background-size: 300% 300%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    animation: gradientMove 7s ease infinite;
+
+    text-shadow:
+        0 0 35px rgba(255,0,120,.15);
+}
+
+@keyframes gradientMove {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* =========================
+   SUBTITLE
+========================= */
+
+.subtitle {
+    margin-top: 18px;
+
+    color: rgba(255,255,255,.65);
+
+    letter-spacing: 6px;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   CREATOR
+========================= */
+
+.creator {
+    margin-top: 12px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8a6500,
+            #ffd700,
+            #fff2a6,
+            #d4af37,
+            #ffd700,
+            #8a6500
+        );
+
+    background-size: 250% 100%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    animation: goldMove 5s ease infinite;
+
+    text-shadow:
+        0 0 10px rgba(255,215,0,.18);
+}
+
+@keyframes goldMove {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* =========================
+   HEADER LINE
+========================= */
+
+.header-line {
+    width: min(900px, 85%);
+
+    height: 1px;
+
+    margin: 30px auto 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #ff0080,
+            #8b2cff,
+            #ff9d00,
+            transparent
+        );
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title {
+    width: min(1100px, 90%);
+
+    margin: 45px auto 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+.section-title::before,
+.section-title::after {
+    content: "";
+
+    height: 1px;
+
+    flex: 1;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.25)
+        );
+}
+
+.section-title::after {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.25),
+            transparent
+        );
+}
+
+.section-title h1 {
+    font-size: 23px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================
+   MOVIES
+========================= */
+
+.movies {
+    width: min(1150px, 92%);
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(250px, 1fr)
+        );
+
+    gap: 28px;
+
+    padding-bottom: 80px;
+}
+
+
+/* =========================
+   MOVIE CARD
+========================= */
+
+.movie {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.09),
+            rgba(255,255,255,.025)
+        );
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.45);
+
+    transition:
+        transform .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+.movie:hover {
+    transform: translateY(-8px);
+
+    border-color:
+        rgba(255,0,140,.55);
+
+    box-shadow:
+        0 25px 70px
+        rgba(255,0,130,.12);
+}
+
+
+/* =========================
+   POSTER
+========================= */
+
+.movie img {
+    width: 100%;
+
+    height: 340px;
+
+    display: block;
+
+    object-fit: cover;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111,
+            #27102c
+        );
+
+    transition:
+        transform .5s ease;
+}
+
+.movie:hover img {
+    transform: scale(1.04);
+}
+
+
+/* =========================
+   MOVIE INFO
+========================= */
+
+.movie-info {
+    padding: 20px;
+}
+
+.movie-info h2 {
+    font-size: 22px;
+
+    margin-bottom: 16px;
+
+    direction: ltr;
+
+    text-align: left;
+}
+
+
+/* =========================
+   WATCH BUTTON
+========================= */
+
+.watch {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 13px 18px;
+
+    color: white;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            100deg,
+            #ff0055,
+            #a000ff,
+            #ff8a00
+        );
+
+    background-size: 200% 200%;
+
+    transition:
+        transform .2s ease,
+        background-position .4s ease,
+        box-shadow .3s ease;
+}
+
+.watch:hover {
+    transform: scale(1.02);
+
+    background-position: 100% 50%;
+
+    box-shadow:
+        0 10px 30px
+        rgba(255,0,130,.3);
+}
+
+.watch:active {
+    transform: scale(.98);
+}
+
+
+/* =========================
+   VIDEO VIEWER
+========================= */
+
+.viewer {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        rgba(0,0,0,.94);
+
+    backdrop-filter: blur(15px);
+}
+
+.viewer.active {
+    display: flex;
+}
+
+.viewer-box {
+    width: min(1200px, 96vw);
+
+    position: relative;
+}
+
+.viewer-title {
+    color: white;
+
+    font-size: 20px;
+
+    margin-bottom: 12px;
+
+    text-align: center;
+}
+
+#player {
+    width: 100%;
+
+    max-height: 82vh;
+
+    display: block;
+
+    background: black;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 0 70px
+        rgba(150,0,255,.25);
+}
+
+.close {
+    position: absolute;
+
+    top: -48px;
+
+    right: 0;
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.close:hover {
+    background: #ff0055;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    text-align: center;
+
+    padding: 35px 20px;
+
+    color:
+        rgba(255,255,255,.35);
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    header {
+        padding-top: 40px;
+    }
+
+    .logo {
+        letter-spacing: -5px;
+    }
+
+    .subtitle {
+        font-size: 10px;
+        letter-spacing: 3px;
+    }
+
+    .creator {
+        font-size: 14px;
+    }
+
+    .movies {
+        width: 90%;
+
+        grid-template-columns: 1fr;
+    }
+
+    .movie img {
+        height: 390px;
+    }
+
+    .section-title h1 {
+        font-size: 18px;
+    }
+
+    .viewer {
+        padding: 12px;
+    }
+
+    #player {
+        max-height: 75vh;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        GX01
+    </div>
+
+    <div class="subtitle">
+        CINEMA • FILMS • STORIES
+    </div>
+
+    <div class="creator">
+        من إنشاء عبد القادر بن حدو
+    </div>
+
+    <div class="header-line"></div>
+
+</header>
+
+
+<div class="section-title">
+
+    <h1>
+        الأفلام
+    </h1>
+
+</div>
+
+
+<main class="movies">
+
+
+    <!-- 1 BIG BUCK BUNNY -->
+
+    <article class="movie">
+
+        <img
+            src="poster.jpg"
+            alt="Big Buck Bunny"
+            onerror="posterError(this)"
+        >
+
+        <div class="movie-info">
+
+            <h2>
+                Big Buck Bunny
+            </h2>
+
+            <button
+                class="watch"
+                onclick="openMovie(
+                    'Big Buck Bunny',
+                    'videos/bbb_sunflower_1080p_30fps_normal.mp4'
+                )"
+            >
+                ▶ مشاهدة الفيلم
+            </button>
+
+        </div>
+
+    </article>
+
+
+    <!-- 2 SINTEL -->
+
+    <article class="movie">
+
+        <img
+            src="poster-sintel.jpg"
+            alt="Sintel"
+            onerror="posterError(this)"
+        >
+
+        <div class="movie-info">
+
+            <h2>
+                Sintel
+            </h2>
+
+            <button
+                class="watch"
+                onclick="openMovie(
+                    'Sintel',
+                    'videos/sintel.mp4'
+                )"
+            >
+                ▶ مشاهدة الفيلم
+            </button>
+
+        </div>
+
+    </article>
+
+
+    <!-- 3 TEARS OF STEEL -->
+
+    <article class="movie">
+
+        <img
+            src="poster-tears.jpg"
+            alt="Tears of Steel"
+            onerror="posterError(this)"
+        >
+
+        <div class="movie-info">
+
+            <h2>
+                Tears of Steel
+            </h2>
+
+            <button
+                class="watch"
+                onclick="openMovie(
+                    'Tears of Steel',
+                    'videos/tears-of-steel.mp4'
+                )"
+            >
+                ▶ مشاهدة الفيلم
+            </button>
+
+        </div>
+
+    </article>
+
+
+    <!-- 4 ELEPHANTS DREAM -->
+
+    <article class="movie">
+
+        <img
+            src="poster-elephants.jpg"
+            alt="Elephants Dream"
+            onerror="posterError(this)"
+        >
+
+        <div class="movie-info">
+
+            <h2>
+                Elephants Dream
+            </h2>
+
+            <button
+                class="watch"
+                onclick="openMovie(
+                    'Elephants Dream',
+                    'videos/elephants-dream.webm'
+                )"
+            >
+                ▶ مشاهدة الفيلم
+            </button>
+
+        </div>
+
+    </article>
+
+
+    <!-- 5 COSMOS LAUNDROMAT -->
+
+    <article class="movie">
+
+        <img
+            src="poster-cosmos.jpg"
+            alt="Cosmos Laundromat"
+            onerror="posterError(this)"
+        >
+
+        <div class="movie-info">
+
+            <h2>
+                Cosmos Laundromat
+            </h2>
+
+            <button
+                class="watch"
+                onclick="openMovie(
+                    'Cosmos Laundromat',
+                    'videos/cosmos-laundromat.webm'
+                )"
+            >
+                ▶ مشاهدة الفيلم
+            </button>
+
+        </div>
+
+    </article>
+
+
+</main>
+
+
+<!-- VIDEO VIEWER -->
+
+<div
+    class="viewer"
+    id="viewer"
+    onclick="closeFromBackground(event)"
+>
+
+    <div class="viewer-box">
+
+        <button
+            class="close"
+            onclick="closeMovie()"
+        >
+            ×
+        </button>
+
+        <div
+            class="viewer-title"
+            id="viewerTitle"
+        ></div>
+
+        <video
+            id="player"
+            controls
+            playsinline
+        ></video>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    GX01 © 2026
+
+    <br><br>
+
+    CINEMA • FILMS • STORIES
+
+</footer>
+
+
+<script>
+
+
+function openMovie(title, source) {
+
+    const viewer =
+        document.getElementById("viewer");
+
+    const player =
+        document.getElementById("player");
+
+    const viewerTitle =
+        document.getElementById("viewerTitle");
+
+    viewerTitle.textContent = title;
+
+    player.pause();
+
+    player.src = source;
+
+    viewer.classList.add("active");
+
+    player.load();
+
+    player.play().catch(() => {});
+
+}
+
+
+function closeMovie() {
+
+    const viewer =
+        document.getElementById("viewer");
+
+    const player =
+        document.getElementById("player");
+
+    player.pause();
+
+    player.removeAttribute("src");
+
+    player.load();
+
+    viewer.classList.remove("active");
+
+}
+
+
+function closeFromBackground(event) {
+
+    if (event.target.id === "viewer") {
+
+        closeMovie();
+
+    }
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeMovie();
+
+        }
+
+    }
+);
+
+
+function posterError(image) {
+
+    image.style.background =
+        "linear-gradient(135deg,#111,#3a0d42)";
+
+    image.style.objectFit =
+        "contain";
+
+    image.alt = "GX01";
+
+}
+
+</script>
+
+
+</body>
+</html>
